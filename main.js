@@ -1,7 +1,34 @@
 import { createIcons, icons } from 'lucide';
+import { WaveAnimation } from './waves.js';
 
 // Initialize icons
 createIcons({ icons });
+
+// Initialize Waves
+new WaveAnimation('hero-canvas');
+
+// 3D Tilt Effect for Cards
+const cards = document.querySelectorAll('.glass-card');
+cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = ((y - centerY) / centerY) * -5; // Max 5deg rotation
+        const rotateY = ((x - centerX) / centerX) * 5;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+    });
+});
+
 
 // Mobile Menu Toggle
 const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -19,8 +46,8 @@ const modalContent = document.getElementById('modal-content');
 const modalCloseBtn = document.getElementById('modal-close');
 const modalTitle = document.getElementById('modal-title');
 const modalMessage = document.getElementById('modal-message');
-const modalIcon = document.getElementById('modal-icon'); // The i element itself
-const modalIconContainer = modalIcon.parentElement; // The container div
+const modalIcon = document.getElementById('modal-icon'); 
+const modalIconContainer = modalIcon ? modalIcon.parentElement : null;
 
 const triggerButtons = document.querySelectorAll('.trigger-modal');
 
@@ -30,21 +57,22 @@ const openModal = (title, message, iconName = 'check') => {
     modalTitle.textContent = title;
     modalMessage.textContent = message;
     
-    // Update icon
-    // Clear previous icon content
-    modalIconContainer.innerHTML = `<i data-lucide="${iconName}" class="h-8 w-8"></i>`;
-    createIcons({ 
-        icons,
-        nameAttr: 'data-lucide',
-        attrs: {class: "h-8 w-8"}
-    });
+    if (modalIconContainer) {
+        modalIconContainer.innerHTML = `<i data-lucide="${iconName}" class="h-8 w-8"></i>`;
+        createIcons({ 
+            icons,
+            nameAttr: 'data-lucide',
+            attrs: {class: "h-8 w-8"}
+        });
+    }
 
     modalOverlay.classList.remove('hidden');
-    // Small timeout to allow display:flex to apply before opacity transition
     setTimeout(() => {
         modalOverlay.classList.remove('opacity-0');
-        modalContent.classList.remove('scale-95');
-        modalContent.classList.add('scale-100');
+        if (modalContent) {
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        }
     }, 10);
 };
 
@@ -52,8 +80,10 @@ const closeModal = () => {
     if (!modalOverlay) return;
     
     modalOverlay.classList.add('opacity-0');
-    modalContent.classList.remove('scale-100');
-    modalContent.classList.add('scale-95');
+    if (modalContent) {
+        modalContent.classList.remove('scale-100');
+        modalContent.classList.add('scale-95');
+    }
     
     setTimeout(() => {
         modalOverlay.classList.add('hidden');
@@ -96,10 +126,9 @@ triggerButtons.forEach(btn => {
                 icon = "rocket";
                 break;
             case 'browse':
-                // Just scroll to section, but we can show a toast or just let the anchor tag handle it if it was an anchor.
-                // Since it's a button here for demo purposes:
-                document.getElementById('browse').scrollIntoView({ behavior: 'smooth' });
-                return; // Don't show modal
+                const browseSection = document.getElementById('browse');
+                if (browseSection) browseSection.scrollIntoView({ behavior: 'smooth' });
+                return;
         }
         
         openModal(title, message, icon);
@@ -110,7 +139,6 @@ if (modalCloseBtn) {
     modalCloseBtn.addEventListener('click', closeModal);
 }
 
-// Close on click outside
 if (modalOverlay) {
     modalOverlay.addEventListener('click', (e) => {
         if (e.target === modalOverlay) {
