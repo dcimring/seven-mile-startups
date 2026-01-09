@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
@@ -9,70 +9,93 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
+    <script>
+      // Inline script to prevent flash of wrong theme
+      if (localStorage.theme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
   </head>
-  <body class="bg-cayman-deep text-slate-300 relative overflow-x-hidden">
+  <body class="relative overflow-x-hidden transition-colors duration-300">
     
     <!-- Noise Overlay -->
     <div class="noise-overlay"></div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 transition-all duration-300 glass border-b border-white/5">
+    <nav class="fixed w-full z-50 transition-all duration-300 glass border-b border-transparent dark:border-white/5">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-20 items-center">
           <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer group">
             <div class="relative">
-                <div class="absolute inset-0 bg-cayman-cyan blur-lg opacity-20 group-hover:opacity-40 transition-opacity"></div>
-                <i data-lucide="waves" class="text-cayman-cyan h-8 w-8 relative z-10"></i>
+                <div class="absolute inset-0 bg-cayman-blue/20 dark:bg-cayman-cyan/20 blur-lg opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                <i data-lucide="waves" class="text-cayman-blue dark:text-cayman-cyan h-8 w-8 relative z-10"></i>
             </div>
-            <span class="font-display font-bold text-xl tracking-tight text-white group-hover:text-cayman-cyan transition-colors">Seven Mile <span class="text-cayman-blue">Startups</span></span>
+            <span class="font-display font-bold text-xl tracking-tight text-slate-900 dark:text-white group-hover:text-cayman-blue dark:group-hover:text-cayman-cyan transition-colors">Seven Mile <span class="text-cayman-blue">Startups</span></span>
           </div>
+          
           <div class="hidden md:flex items-center space-x-8">
-            <a href="#browse" class="text-sm font-medium hover:text-cayman-cyan transition-colors tracking-wide">Browse Ideas</a>
-            <a href="#mentors" class="text-sm font-medium hover:text-cayman-cyan transition-colors tracking-wide">Mentors</a>
-            <a href="#sponsors" class="text-sm font-medium hover:text-cayman-cyan transition-colors tracking-wide">For Sponsors</a>
+            <a href="#browse" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cayman-blue dark:hover:text-cayman-cyan transition-colors tracking-wide">Browse Ideas</a>
+            <a href="#mentors" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cayman-blue dark:hover:text-cayman-cyan transition-colors tracking-wide">Mentors</a>
+            <a href="#sponsors" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cayman-blue dark:hover:text-cayman-cyan transition-colors tracking-wide">For Sponsors</a>
+            
+            <!-- Theme Toggle Desktop -->
+            <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 transition-colors" aria-label="Toggle Dark Mode">
+                <i data-lucide="sun" class="h-5 w-5 hidden dark:block"></i>
+                <i data-lucide="moon" class="h-5 w-5 block dark:hidden"></i>
+            </button>
+
             <button class="btn-primary flex items-center gap-2 trigger-modal text-sm" data-type="submit">
               <i data-lucide="lightbulb" class="h-4 w-4"></i>
               Submit Idea
             </button>
           </div>
+          
           <!-- Mobile menu button -->
-          <div class="md:hidden flex items-center">
-            <button class="text-slate-300 hover:text-cayman-cyan mobile-menu-btn">
+          <div class="md:hidden flex items-center gap-4">
+             <!-- Theme Toggle Mobile -->
+             <button id="theme-toggle-mobile" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 transition-colors">
+                <i data-lucide="sun" class="h-5 w-5 hidden dark:block"></i>
+                <i data-lucide="moon" class="h-5 w-5 block dark:hidden"></i>
+            </button>
+
+            <button class="text-slate-600 dark:text-slate-300 hover:text-cayman-blue dark:hover:text-cayman-cyan mobile-menu-btn">
               <i data-lucide="menu" class="h-6 w-6"></i>
             </button>
           </div>
         </div>
       </div>
       <!-- Mobile Menu Panel -->
-      <div class="md:hidden hidden bg-cayman-surface border-t border-white/10 mobile-menu">
+      <div class="md:hidden hidden bg-white dark:bg-cayman-surface border-t border-slate-100 dark:border-white/10 mobile-menu">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="#browse" class="block px-3 py-2 text-slate-300 font-medium hover:bg-white/5 hover:text-cayman-cyan rounded-md">Browse Ideas</a>
-            <a href="#mentors" class="block px-3 py-2 text-slate-300 font-medium hover:bg-white/5 hover:text-cayman-cyan rounded-md">Mentors</a>
-            <a href="#sponsors" class="block px-3 py-2 text-slate-300 font-medium hover:bg-white/5 hover:text-cayman-cyan rounded-md">For Sponsors</a>
+            <a href="#browse" class="block px-3 py-2 text-slate-600 dark:text-slate-300 font-medium hover:bg-slate-50 dark:hover:bg-white/5 hover:text-cayman-blue dark:hover:text-cayman-cyan rounded-md">Browse Ideas</a>
+            <a href="#mentors" class="block px-3 py-2 text-slate-600 dark:text-slate-300 font-medium hover:bg-slate-50 dark:hover:bg-white/5 hover:text-cayman-blue dark:hover:text-cayman-cyan rounded-md">Mentors</a>
+            <a href="#sponsors" class="block px-3 py-2 text-slate-600 dark:text-slate-300 font-medium hover:bg-slate-50 dark:hover:bg-white/5 hover:text-cayman-blue dark:hover:text-cayman-cyan rounded-md">For Sponsors</a>
             <button class="w-full text-left mt-2 px-3 py-2 btn-primary trigger-modal" data-type="submit">Submit Idea</button>
         </div>
       </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <canvas id="hero-canvas" class="absolute inset-0 z-0 opacity-60"></canvas>
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-slate-50 dark:bg-transparent transition-colors duration-500">
+        <canvas id="hero-canvas" class="absolute inset-0 z-0 opacity-40 dark:opacity-60 transition-opacity duration-500"></canvas>
         
         <!-- Mesh Gradient Orbs -->
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-cayman-blue rounded-full mix-blend-screen filter blur-[128px] opacity-20 animate-pulse-slow"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cayman-coral rounded-full mix-blend-screen filter blur-[128px] opacity-10 animate-float"></div>
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-300 dark:bg-cayman-blue rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[128px] opacity-40 dark:opacity-20 animate-pulse-slow"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-200 dark:bg-cayman-coral rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[128px] opacity-40 dark:opacity-10 animate-float"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <div class="animate-fade-in-up stagger-1">
-                <span class="inline-block py-1 px-4 rounded-full bg-cayman-cyan/10 border border-cayman-cyan/20 text-cayman-cyan text-xs font-bold mb-8 tracking-[0.2em] uppercase backdrop-blur-md">Cayman Innovation Portal</span>
+                <span class="inline-block py-1 px-4 rounded-full bg-blue-50 dark:bg-cayman-cyan/10 border border-blue-100 dark:border-cayman-cyan/20 text-cayman-blue dark:text-cayman-cyan text-xs font-bold mb-8 tracking-[0.2em] uppercase backdrop-blur-md shadow-sm dark:shadow-none">Cayman Innovation Portal</span>
             </div>
             
-            <h1 class="animate-fade-in-up stagger-2 text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white tracking-tight mb-8 leading-none">
+            <h1 class="animate-fade-in-up stagger-2 text-5xl md:text-7xl lg:text-8xl font-display font-bold text-slate-900 dark:text-white tracking-tight mb-8 leading-none">
                 The Future is <br>
                 <span class="text-gradient">Built by You.</span>
             </h1>
             
-            <p class="animate-fade-in-up stagger-3 mt-4 max-w-2xl mx-auto text-lg md:text-xl text-slate-400 mb-12 font-light leading-relaxed">
+            <p class="animate-fade-in-up stagger-3 mt-4 max-w-2xl mx-auto text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-12 font-light leading-relaxed">
                 Moving beyond traditional sectors to empower the next generation of Caymanian innovators. Find an idea, join a team, or fund a vision.
             </p>
             
@@ -88,19 +111,19 @@
         
         <!-- Scroll Indicator -->
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-50">
-            <i data-lucide="chevrons-down" class="text-white h-6 w-6"></i>
+            <i data-lucide="chevrons-down" class="text-slate-400 dark:text-white h-6 w-6"></i>
         </div>
     </section>
 
     <!-- Marketplace Grid -->
-    <section id="browse" class="py-32 relative z-10">
+    <section id="browse" class="py-32 relative z-10 bg-slate-50 dark:bg-transparent transition-colors duration-500">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
                 <div>
-                    <h2 class="text-4xl font-bold text-white mb-4">Featured Startups</h2>
-                    <p class="text-slate-400 max-w-lg">Discover the latest ventures looking for talent and funding in the Cayman Islands ecosystem.</p>
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">Featured Startups</h2>
+                    <p class="text-slate-600 dark:text-slate-400 max-w-lg">Discover the latest ventures looking for talent and funding in the Cayman Islands ecosystem.</p>
                 </div>
-                <a href="#" class="hidden md:flex items-center text-cayman-cyan font-bold hover:underline gap-2 group">View All <i data-lucide="arrow-right" class="h-4 w-4 group-hover:translate-x-1 transition-transform"></i></a>
+                <a href="#" class="hidden md:flex items-center text-cayman-blue dark:text-cayman-cyan font-bold hover:underline gap-2 group">View All <i data-lucide="arrow-right" class="h-4 w-4 group-hover:translate-x-1 transition-transform"></i></a>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -108,33 +131,33 @@
                 <div class="glass-card flex flex-col group h-full">
                     <div class="p-8 flex-1">
                         <div class="flex justify-between items-start mb-6">
-                            <div class="p-3 bg-cayman-blue/10 rounded-2xl text-cayman-cyan ring-1 ring-cayman-cyan/20">
+                            <div class="p-3 bg-blue-50 dark:bg-cayman-blue/10 rounded-2xl text-cayman-blue dark:text-cayman-cyan ring-1 ring-blue-100 dark:ring-cayman-cyan/20">
                                 <i data-lucide="container" class="h-6 w-6"></i>
                             </div>
-                            <span class="px-3 py-1 bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-bold tracking-wider uppercase rounded-full">Recruiting</span>
+                            <span class="px-3 py-1 bg-green-100 dark:bg-green-500/10 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-500/20 text-xs font-bold tracking-wider uppercase rounded-full">Recruiting</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-cayman-cyan transition-colors">Seaglass Logistics</h3>
-                        <p class="text-slate-400 text-sm mb-6 leading-relaxed">An AI-driven sustainable supply chain solution specifically designed for Caribbean inter-island shipping complexities.</p>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-cayman-blue dark:group-hover:text-cayman-cyan transition-colors">Seaglass Logistics</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed">An AI-driven sustainable supply chain solution specifically designed for Caribbean inter-island shipping complexities.</p>
                         
-                        <div class="space-y-4 pt-6 border-t border-white/5">
-                            <div class="flex items-center gap-3 text-sm text-slate-400">
-                                <div class="bg-white/5 p-1.5 rounded-full"><i data-lucide="user" class="h-3 w-3"></i></div>
-                                <span>Founder: <span class="text-white font-medium">James Ebanks</span></span>
+                        <div class="space-y-4 pt-6 border-t border-slate-100 dark:border-white/5">
+                            <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+                                <div class="bg-slate-50 dark:bg-white/5 p-1.5 rounded-full"><i data-lucide="user" class="h-3 w-3"></i></div>
+                                <span>Founder: <span class="text-slate-900 dark:text-white font-medium">James Ebanks</span></span>
                             </div>
-                            <div class="flex items-center gap-3 text-sm text-slate-400">
-                                <div class="bg-white/5 p-1.5 rounded-full"><i data-lucide="users" class="h-3 w-3"></i></div>
+                            <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+                                <div class="bg-slate-50 dark:bg-white/5 p-1.5 rounded-full"><i data-lucide="users" class="h-3 w-3"></i></div>
                                 <span>Seeking: <span class="text-cayman-coral font-medium">Lead Developer</span></span>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white/5 px-8 py-5 border-t border-white/5 flex items-center justify-between mt-auto">
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                            <span class="text-cayman-cyan">40%</span> Sponsored
-                            <div class="w-20 h-1 bg-white/10 rounded-full mt-2 overflow-hidden">
-                                <div class="bg-cayman-cyan h-full rounded-full shadow-[0_0_10px_rgba(100,255,218,0.5)]" style="width: 40%"></div>
+                    <div class="bg-slate-50 dark:bg-white/5 px-8 py-5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between mt-auto rounded-b-2xl">
+                        <div class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                            <span class="text-cayman-blue dark:text-cayman-cyan">40%</span> Sponsored
+                            <div class="w-20 h-1 bg-slate-200 dark:bg-white/10 rounded-full mt-2 overflow-hidden">
+                                <div class="bg-cayman-blue dark:bg-cayman-cyan h-full rounded-full dark:shadow-[0_0_10px_rgba(100,255,218,0.5)]" style="width: 40%"></div>
                             </div>
                         </div>
-                        <button class="text-sm font-bold text-white hover:text-cayman-cyan transition-colors trigger-modal" data-type="interest" data-project="Seaglass Logistics">I'm Interested</button>
+                        <button class="text-sm font-bold text-cayman-blue dark:text-white hover:text-blue-700 dark:hover:text-cayman-cyan transition-colors trigger-modal" data-type="interest" data-project="Seaglass Logistics">I'm Interested</button>
                     </div>
                 </div>
 
@@ -142,33 +165,33 @@
                 <div class="glass-card flex flex-col group h-full">
                     <div class="p-8 flex-1">
                         <div class="flex justify-between items-start mb-6">
-                            <div class="p-3 bg-cayman-cyan/10 rounded-2xl text-cayman-cyan ring-1 ring-cayman-cyan/20">
+                            <div class="p-3 bg-teal-50 dark:bg-cayman-cyan/10 rounded-2xl text-teal-600 dark:text-cayman-cyan ring-1 ring-teal-100 dark:ring-cayman-cyan/20">
                                 <i data-lucide="glasses" class="h-6 w-6"></i>
                             </div>
-                            <span class="px-3 py-1 bg-purple-500/10 text-purple-400 border border-purple-500/20 text-xs font-bold tracking-wider uppercase rounded-full">Growth</span>
+                            <span class="px-3 py-1 bg-purple-100 dark:bg-purple-500/10 text-purple-700 dark:text-purple-400 border border-purple-200 dark:border-purple-500/20 text-xs font-bold tracking-wider uppercase rounded-full">Growth</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-cayman-cyan transition-colors">Coral Reef VR</h3>
-                        <p class="text-slate-400 text-sm mb-6 leading-relaxed">Immersive EdTech platform allowing global classrooms to experience Cayman's marine life for conservation education.</p>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-cayman-blue dark:group-hover:text-cayman-cyan transition-colors">Coral Reef VR</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed">Immersive EdTech platform allowing global classrooms to experience Cayman's marine life for conservation education.</p>
                         
-                        <div class="space-y-4 pt-6 border-t border-white/5">
-                            <div class="flex items-center gap-3 text-sm text-slate-400">
-                                <div class="bg-white/5 p-1.5 rounded-full"><i data-lucide="user" class="h-3 w-3"></i></div>
-                                <span>Founder: <span class="text-white font-medium">Sarah Miller</span></span>
+                        <div class="space-y-4 pt-6 border-t border-slate-100 dark:border-white/5">
+                            <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+                                <div class="bg-slate-50 dark:bg-white/5 p-1.5 rounded-full"><i data-lucide="user" class="h-3 w-3"></i></div>
+                                <span>Founder: <span class="text-slate-900 dark:text-white font-medium">Sarah Miller</span></span>
                             </div>
-                            <div class="flex items-center gap-3 text-sm text-slate-400">
-                                <div class="bg-white/5 p-1.5 rounded-full"><i data-lucide="megaphone" class="h-3 w-3"></i></div>
+                            <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+                                <div class="bg-slate-50 dark:bg-white/5 p-1.5 rounded-full"><i data-lucide="megaphone" class="h-3 w-3"></i></div>
                                 <span>Seeking: <span class="text-cayman-coral font-medium">Marketing Partner</span></span>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white/5 px-8 py-5 border-t border-white/5 flex items-center justify-between mt-auto">
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                            <span class="text-cayman-cyan">75%</span> Sponsored
-                            <div class="w-20 h-1 bg-white/10 rounded-full mt-2 overflow-hidden">
-                                <div class="bg-cayman-cyan h-full rounded-full shadow-[0_0_10px_rgba(100,255,218,0.5)]" style="width: 75%"></div>
+                    <div class="bg-slate-50 dark:bg-white/5 px-8 py-5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between mt-auto rounded-b-2xl">
+                        <div class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                            <span class="text-cayman-blue dark:text-cayman-cyan">75%</span> Sponsored
+                            <div class="w-20 h-1 bg-slate-200 dark:bg-white/10 rounded-full mt-2 overflow-hidden">
+                                <div class="bg-cayman-blue dark:bg-cayman-cyan h-full rounded-full dark:shadow-[0_0_10px_rgba(100,255,218,0.5)]" style="width: 75%"></div>
                             </div>
                         </div>
-                        <button class="text-sm font-bold text-white hover:text-cayman-cyan transition-colors trigger-modal" data-type="interest" data-project="Coral Reef VR">I'm Interested</button>
+                        <button class="text-sm font-bold text-cayman-blue dark:text-white hover:text-blue-700 dark:hover:text-cayman-cyan transition-colors trigger-modal" data-type="interest" data-project="Coral Reef VR">I'm Interested</button>
                     </div>
                 </div>
 
@@ -176,33 +199,33 @@
                 <div class="glass-card flex flex-col group h-full">
                     <div class="p-8 flex-1">
                         <div class="flex justify-between items-start mb-6">
-                            <div class="p-3 bg-cayman-coral/10 rounded-2xl text-cayman-coral ring-1 ring-cayman-coral/20">
+                            <div class="p-3 bg-orange-50 dark:bg-cayman-coral/10 rounded-2xl text-orange-500 dark:text-cayman-coral ring-1 ring-orange-100 dark:ring-cayman-coral/20">
                                 <i data-lucide="wallet" class="h-6 w-6"></i>
                             </div>
-                            <span class="px-3 py-1 bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 text-xs font-bold tracking-wider uppercase rounded-full">Idea Phase</span>
+                            <span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-500/20 text-xs font-bold tracking-wider uppercase rounded-full">Idea Phase</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-cayman-cyan transition-colors">Mangrove FinTech</h3>
-                        <p class="text-slate-400 text-sm mb-6 leading-relaxed">A micro-lending mobile platform designed specifically to support local artisanal businesses and vendors.</p>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-cayman-blue dark:group-hover:text-cayman-cyan transition-colors">Mangrove FinTech</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed">A micro-lending mobile platform designed specifically to support local artisanal businesses and vendors.</p>
                         
-                        <div class="space-y-4 pt-6 border-t border-white/5">
-                            <div class="flex items-center gap-3 text-sm text-slate-400">
-                                <div class="bg-white/5 p-1.5 rounded-full"><i data-lucide="user" class="h-3 w-3"></i></div>
-                                <span>Founder: <span class="text-white font-medium">David Watler</span></span>
+                        <div class="space-y-4 pt-6 border-t border-slate-100 dark:border-white/5">
+                            <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+                                <div class="bg-slate-50 dark:bg-white/5 p-1.5 rounded-full"><i data-lucide="user" class="h-3 w-3"></i></div>
+                                <span>Founder: <span class="text-slate-900 dark:text-white font-medium">David Watler</span></span>
                             </div>
-                            <div class="flex items-center gap-3 text-sm text-slate-400">
-                                <div class="bg-white/5 p-1.5 rounded-full"><i data-lucide="loader" class="h-3 w-3"></i></div>
-                                <span>Status: <span class="text-slate-300 font-medium">Idea Validation</span></span>
+                            <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+                                <div class="bg-slate-50 dark:bg-white/5 p-1.5 rounded-full"><i data-lucide="loader" class="h-3 w-3"></i></div>
+                                <span>Status: <span class="text-slate-700 dark:text-slate-300 font-medium">Idea Validation</span></span>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white/5 px-8 py-5 border-t border-white/5 flex items-center justify-between mt-auto">
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                            <span class="text-cayman-cyan">10%</span> Sponsored
-                            <div class="w-20 h-1 bg-white/10 rounded-full mt-2 overflow-hidden">
-                                <div class="bg-cayman-cyan h-full rounded-full shadow-[0_0_10px_rgba(100,255,218,0.5)]" style="width: 10%"></div>
+                    <div class="bg-slate-50 dark:bg-white/5 px-8 py-5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between mt-auto rounded-b-2xl">
+                        <div class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                            <span class="text-cayman-blue dark:text-cayman-cyan">10%</span> Sponsored
+                            <div class="w-20 h-1 bg-slate-200 dark:bg-white/10 rounded-full mt-2 overflow-hidden">
+                                <div class="bg-cayman-blue dark:bg-cayman-cyan h-full rounded-full dark:shadow-[0_0_10px_rgba(100,255,218,0.5)]" style="width: 10%"></div>
                             </div>
                         </div>
-                        <button class="text-sm font-bold text-white hover:text-cayman-cyan transition-colors trigger-modal" data-type="sponsor" data-project="Mangrove FinTech">Sponsor</button>
+                        <button class="text-sm font-bold text-cayman-blue dark:text-white hover:text-blue-700 dark:hover:text-cayman-cyan transition-colors trigger-modal" data-type="sponsor" data-project="Mangrove FinTech">Sponsor</button>
                     </div>
                 </div>
 
@@ -210,33 +233,33 @@
                 <div class="glass-card flex flex-col group h-full">
                     <div class="p-8 flex-1">
                         <div class="flex justify-between items-start mb-6">
-                            <div class="p-3 bg-teal-500/10 rounded-2xl text-teal-400 ring-1 ring-teal-500/20">
+                            <div class="p-3 bg-teal-50 dark:bg-teal-500/10 rounded-2xl text-teal-600 dark:text-teal-400 ring-1 ring-teal-100 dark:ring-teal-500/20">
                                 <i data-lucide="leaf" class="h-6 w-6"></i>
                             </div>
-                            <span class="px-3 py-1 bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-bold tracking-wider uppercase rounded-full">Seed Stage</span>
+                            <span class="px-3 py-1 bg-green-100 dark:bg-green-500/10 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-500/20 text-xs font-bold tracking-wider uppercase rounded-full">Seed Stage</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-cayman-cyan transition-colors">BlueCarbonX</h3>
-                        <p class="text-slate-400 text-sm mb-6 leading-relaxed">Blockchain-verified carbon credits derived from Cayman's protected mangrove ecosystems.</p>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-cayman-blue dark:group-hover:text-cayman-cyan transition-colors">BlueCarbonX</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed">Blockchain-verified carbon credits derived from Cayman's protected mangrove ecosystems.</p>
                         
-                        <div class="space-y-4 pt-6 border-t border-white/5">
-                            <div class="flex items-center gap-3 text-sm text-slate-400">
-                                <div class="bg-white/5 p-1.5 rounded-full"><i data-lucide="user" class="h-3 w-3"></i></div>
-                                <span>Founder: <span class="text-white font-medium">Elena Rivers</span></span>
+                        <div class="space-y-4 pt-6 border-t border-slate-100 dark:border-white/5">
+                            <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+                                <div class="bg-slate-50 dark:bg-white/5 p-1.5 rounded-full"><i data-lucide="user" class="h-3 w-3"></i></div>
+                                <span>Founder: <span class="text-slate-900 dark:text-white font-medium">Elena Rivers</span></span>
                             </div>
-                            <div class="flex items-center gap-3 text-sm text-slate-400">
-                                <div class="bg-white/5 p-1.5 rounded-full"><i data-lucide="users" class="h-3 w-3"></i></div>
+                            <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+                                <div class="bg-slate-50 dark:bg-white/5 p-1.5 rounded-full"><i data-lucide="users" class="h-3 w-3"></i></div>
                                 <span>Seeking: <span class="text-cayman-coral font-medium">Environmental Scientist</span></span>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white/5 px-8 py-5 border-t border-white/5 flex items-center justify-between mt-auto">
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                            <span class="text-cayman-cyan">20%</span> Sponsored
-                            <div class="w-20 h-1 bg-white/10 rounded-full mt-2 overflow-hidden">
-                                <div class="bg-cayman-cyan h-full rounded-full shadow-[0_0_10px_rgba(100,255,218,0.5)]" style="width: 20%"></div>
+                    <div class="bg-slate-50 dark:bg-white/5 px-8 py-5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between mt-auto rounded-b-2xl">
+                        <div class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                            <span class="text-cayman-blue dark:text-cayman-cyan">20%</span> Sponsored
+                            <div class="w-20 h-1 bg-slate-200 dark:bg-white/10 rounded-full mt-2 overflow-hidden">
+                                <div class="bg-cayman-blue dark:bg-cayman-cyan h-full rounded-full dark:shadow-[0_0_10px_rgba(100,255,218,0.5)]" style="width: 20%"></div>
                             </div>
                         </div>
-                        <button class="text-sm font-bold text-white hover:text-cayman-cyan transition-colors trigger-modal" data-type="interest" data-project="BlueCarbonX">I'm Interested</button>
+                        <button class="text-sm font-bold text-cayman-blue dark:text-white hover:text-blue-700 dark:hover:text-cayman-cyan transition-colors trigger-modal" data-type="interest" data-project="BlueCarbonX">I'm Interested</button>
                     </div>
                 </div>
 
@@ -244,33 +267,33 @@
                 <div class="glass-card flex flex-col group h-full">
                     <div class="p-8 flex-1">
                         <div class="flex justify-between items-start mb-6">
-                            <div class="p-3 bg-indigo-500/10 rounded-2xl text-indigo-400 ring-1 ring-indigo-500/20">
+                            <div class="p-3 bg-indigo-50 dark:bg-indigo-500/10 rounded-2xl text-indigo-600 dark:text-indigo-400 ring-1 ring-indigo-100 dark:ring-indigo-500/20">
                                 <i data-lucide="map-pin" class="h-6 w-6"></i>
                             </div>
-                            <span class="px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-bold tracking-wider uppercase rounded-full">Beta</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-500/20 text-xs font-bold tracking-wider uppercase rounded-full">Beta</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-cayman-cyan transition-colors">IslandRide</h3>
-                        <p class="text-slate-400 text-sm mb-6 leading-relaxed">A specialized ride-sharing and route optimization app for Cayman's unique traffic patterns.</p>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-cayman-blue dark:group-hover:text-cayman-cyan transition-colors">IslandRide</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed">A specialized ride-sharing and route optimization app for Cayman's unique traffic patterns.</p>
                         
-                        <div class="space-y-4 pt-6 border-t border-white/5">
-                            <div class="flex items-center gap-3 text-sm text-slate-400">
-                                <div class="bg-white/5 p-1.5 rounded-full"><i data-lucide="user" class="h-3 w-3"></i></div>
-                                <span>Founder: <span class="text-white font-medium">Marcus Bodden</span></span>
+                        <div class="space-y-4 pt-6 border-t border-slate-100 dark:border-white/5">
+                            <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+                                <div class="bg-slate-50 dark:bg-white/5 p-1.5 rounded-full"><i data-lucide="user" class="h-3 w-3"></i></div>
+                                <span>Founder: <span class="text-slate-900 dark:text-white font-medium">Marcus Bodden</span></span>
                             </div>
-                            <div class="flex items-center gap-3 text-sm text-slate-400">
-                                <div class="bg-white/5 p-1.5 rounded-full"><i data-lucide="megaphone" class="h-3 w-3"></i></div>
+                            <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+                                <div class="bg-slate-50 dark:bg-white/5 p-1.5 rounded-full"><i data-lucide="megaphone" class="h-3 w-3"></i></div>
                                 <span>Seeking: <span class="text-cayman-coral font-medium">Beta Testers</span></span>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white/5 px-8 py-5 border-t border-white/5 flex items-center justify-between mt-auto">
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                            <span class="text-cayman-cyan">90%</span> Sponsored
-                            <div class="w-20 h-1 bg-white/10 rounded-full mt-2 overflow-hidden">
-                                <div class="bg-cayman-cyan h-full rounded-full shadow-[0_0_10px_rgba(100,255,218,0.5)]" style="width: 90%"></div>
+                    <div class="bg-slate-50 dark:bg-white/5 px-8 py-5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between mt-auto rounded-b-2xl">
+                        <div class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                            <span class="text-cayman-blue dark:text-cayman-cyan">90%</span> Sponsored
+                            <div class="w-20 h-1 bg-slate-200 dark:bg-white/10 rounded-full mt-2 overflow-hidden">
+                                <div class="bg-cayman-blue dark:bg-cayman-cyan h-full rounded-full dark:shadow-[0_0_10px_rgba(100,255,218,0.5)]" style="width: 90%"></div>
                             </div>
                         </div>
-                        <button class="text-sm font-bold text-white hover:text-cayman-cyan transition-colors trigger-modal" data-type="interest" data-project="IslandRide">I'm Interested</button>
+                        <button class="text-sm font-bold text-cayman-blue dark:text-white hover:text-blue-700 dark:hover:text-cayman-cyan transition-colors trigger-modal" data-type="interest" data-project="IslandRide">I'm Interested</button>
                     </div>
                 </div>
 
@@ -278,33 +301,33 @@
                 <div class="glass-card flex flex-col group h-full">
                     <div class="p-8 flex-1">
                         <div class="flex justify-between items-start mb-6">
-                            <div class="p-3 bg-amber-500/10 rounded-2xl text-amber-400 ring-1 ring-amber-500/20">
+                            <div class="p-3 bg-amber-50 dark:bg-amber-500/10 rounded-2xl text-amber-600 dark:text-amber-400 ring-1 ring-amber-100 dark:ring-amber-500/20">
                                 <i data-lucide="lock" class="h-6 w-6"></i>
                             </div>
-                            <span class="px-3 py-1 bg-red-500/10 text-red-400 border border-red-500/20 text-xs font-bold tracking-wider uppercase rounded-full">Funding</span>
+                            <span class="px-3 py-1 bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-500/20 text-xs font-bold tracking-wider uppercase rounded-full">Funding</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-cayman-cyan transition-colors">CryptoHaven</h3>
-                        <p class="text-slate-400 text-sm mb-6 leading-relaxed">Institutional-grade digital asset custody and compliance solutions tailored for offshore funds.</p>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-cayman-blue dark:group-hover:text-cayman-cyan transition-colors">CryptoHaven</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed">Institutional-grade digital asset custody and compliance solutions tailored for offshore funds.</p>
                         
-                        <div class="space-y-4 pt-6 border-t border-white/5">
-                            <div class="flex items-center gap-3 text-sm text-slate-400">
-                                <div class="bg-white/5 p-1.5 rounded-full"><i data-lucide="user" class="h-3 w-3"></i></div>
-                                <span>Founder: <span class="text-white font-medium">Jessica Chen</span></span>
+                        <div class="space-y-4 pt-6 border-t border-slate-100 dark:border-white/5">
+                            <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+                                <div class="bg-slate-50 dark:bg-white/5 p-1.5 rounded-full"><i data-lucide="user" class="h-3 w-3"></i></div>
+                                <span>Founder: <span class="text-slate-900 dark:text-white font-medium">Jessica Chen</span></span>
                             </div>
-                            <div class="flex items-center gap-3 text-sm text-slate-400">
-                                <div class="bg-white/5 p-1.5 rounded-full"><i data-lucide="users" class="h-3 w-3"></i></div>
+                            <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+                                <div class="bg-slate-50 dark:bg-white/5 p-1.5 rounded-full"><i data-lucide="users" class="h-3 w-3"></i></div>
                                 <span>Seeking: <span class="text-cayman-coral font-medium">Strategic Partner</span></span>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white/5 px-8 py-5 border-t border-white/5 flex items-center justify-between mt-auto">
-                        <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                            <span class="text-cayman-cyan">5%</span> Sponsored
-                            <div class="w-20 h-1 bg-white/10 rounded-full mt-2 overflow-hidden">
-                                <div class="bg-cayman-cyan h-full rounded-full shadow-[0_0_10px_rgba(100,255,218,0.5)]" style="width: 5%"></div>
+                    <div class="bg-slate-50 dark:bg-white/5 px-8 py-5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between mt-auto rounded-b-2xl">
+                        <div class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                            <span class="text-cayman-blue dark:text-cayman-cyan">5%</span> Sponsored
+                            <div class="w-20 h-1 bg-slate-200 dark:bg-white/10 rounded-full mt-2 overflow-hidden">
+                                <div class="bg-cayman-blue dark:bg-cayman-cyan h-full rounded-full dark:shadow-[0_0_10px_rgba(100,255,218,0.5)]" style="width: 5%"></div>
                             </div>
                         </div>
-                        <button class="text-sm font-bold text-white hover:text-cayman-cyan transition-colors trigger-modal" data-type="sponsor" data-project="CryptoHaven">Sponsor</button>
+                        <button class="text-sm font-bold text-cayman-blue dark:text-white hover:text-blue-700 dark:hover:text-cayman-cyan transition-colors trigger-modal" data-type="sponsor" data-project="CryptoHaven">Sponsor</button>
                     </div>
                 </div>
             </div>
@@ -312,15 +335,15 @@
     </section>
 
     <!-- Feature Sections -->
-    <section class="py-24 relative overflow-hidden">
-        <div class="absolute inset-0 bg-cayman-surface skew-y-3 transform origin-bottom-right scale-110 -z-10"></div>
+    <section class="py-24 relative overflow-hidden bg-white dark:bg-transparent transition-colors duration-500">
+        <div class="absolute inset-0 bg-slate-50 dark:bg-cayman-surface skew-y-3 transform origin-bottom-right scale-110 -z-10 transition-colors duration-500"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 gap-16 items-center">
                 <div class="order-2 md:order-1 relative group">
                     <!-- Abstract visual for Team -->
                     <div class="aspect-square rounded-3xl relative overflow-hidden glass p-2">
                          <div class="w-full h-full rounded-2xl bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80')] bg-cover bg-center grayscale opacity-60 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"></div>
-                         <div class="absolute inset-0 bg-cayman-ocean/50 mix-blend-multiply rounded-2xl"></div>
+                         <div class="absolute inset-0 bg-blue-900/20 dark:bg-cayman-ocean/50 mix-blend-multiply rounded-2xl"></div>
                          <div class="absolute inset-0 flex items-center justify-center">
                              <button class="bg-white/10 backdrop-blur-md p-6 rounded-full border border-white/20 hover:bg-white/20 transition-all hover:scale-110 shadow-2xl group-hover:shadow-[0_0_30px_rgba(100,255,218,0.3)]">
                                  <i data-lucide="play" class="h-8 w-8 text-white ml-1"></i>
@@ -328,27 +351,27 @@
                          </div>
                     </div>
                     <!-- Decorative Element -->
-                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-cayman-cyan/20 rounded-full blur-3xl"></div>
+                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-200 dark:bg-cayman-cyan/20 rounded-full blur-3xl"></div>
                 </div>
                 <div class="order-1 md:order-2">
-                    <span class="text-cayman-cyan font-bold tracking-widest uppercase text-xs mb-2 block">Join a Team</span>
-                    <h2 class="text-4xl md:text-5xl font-bold text-white mt-2 mb-6 leading-tight">Your Skills.<br>Their Vision.</h2>
-                    <p class="text-slate-400 text-lg mb-8 leading-relaxed">
+                    <span class="text-cayman-blue dark:text-cayman-cyan font-bold tracking-widest uppercase text-xs mb-2 block">Join a Team</span>
+                    <h2 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mt-2 mb-6 leading-tight">Your Skills.<br>Their Vision.</h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-lg mb-8 leading-relaxed">
                         Don't have an idea yet but want to build something real? Cayman's best startups are looking for co-founders, developers, and marketers.
                     </p>
                     <ul class="space-y-6 mb-10">
                         <li class="flex items-start gap-4">
-                            <div class="bg-cayman-blue/20 p-2 rounded-lg text-cayman-blue"><i data-lucide="check-circle-2" class="h-5 w-5"></i></div>
+                            <div class="bg-blue-50 dark:bg-cayman-blue/20 p-2 rounded-lg text-cayman-blue"><i data-lucide="check-circle-2" class="h-5 w-5"></i></div>
                             <div>
-                                <h4 class="text-white font-bold">Equity-based Compensation</h4>
-                                <p class="text-slate-500 text-sm">Earn a stake in the next big thing.</p>
+                                <h4 class="text-slate-900 dark:text-white font-bold">Equity-based Compensation</h4>
+                                <p class="text-slate-600 dark:text-slate-500 text-sm">Earn a stake in the next big thing.</p>
                             </div>
                         </li>
                         <li class="flex items-start gap-4">
-                            <div class="bg-cayman-blue/20 p-2 rounded-lg text-cayman-blue"><i data-lucide="globe-2" class="h-5 w-5"></i></div>
+                            <div class="bg-blue-50 dark:bg-cayman-blue/20 p-2 rounded-lg text-cayman-blue"><i data-lucide="globe-2" class="h-5 w-5"></i></div>
                             <div>
-                                <h4 class="text-white font-bold">Local Impact, Global Reach</h4>
-                                <p class="text-slate-500 text-sm">Solve real island problems that scale globally.</p>
+                                <h4 class="text-slate-900 dark:text-white font-bold">Local Impact, Global Reach</h4>
+                                <p class="text-slate-600 dark:text-slate-500 text-sm">Solve real island problems that scale globally.</p>
                             </div>
                         </li>
                     </ul>
@@ -358,104 +381,104 @@
         </div>
     </section>
 
-    <section id="mentors" class="py-32 relative">
+    <section id="mentors" class="py-32 relative bg-slate-50 dark:bg-transparent transition-colors duration-500">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center max-w-3xl mx-auto mb-20">
-                <div class="inline-flex items-center justify-center p-3 rounded-2xl bg-cayman-coral/10 text-cayman-coral mb-6 ring-1 ring-cayman-coral/20">
+                <div class="inline-flex items-center justify-center p-3 rounded-2xl bg-orange-50 dark:bg-cayman-coral/10 text-cayman-coral mb-6 ring-1 ring-orange-100 dark:ring-cayman-coral/20">
                     <i data-lucide="award" class="h-8 w-8"></i>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">The Incubator</h2>
-                <p class="text-slate-400 text-lg leading-relaxed">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">The Incubator</h2>
+                <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
                     Private sector experts giving back. Our mentorship program connects you with C-suite executives from Cayman's top firms.
                 </p>
             </div>
             
             <div class="grid md:grid-cols-3 gap-8 text-center">
-                <div class="p-8 rounded-3xl bg-white/5 border border-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors group">
-                    <div class="h-16 w-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-blue-400 ring-1 ring-blue-500/20 group-hover:scale-110 transition-transform duration-300">
+                <div class="p-8 rounded-3xl bg-white border border-slate-200 dark:bg-white/5 dark:border-white/5 backdrop-blur-sm hover:shadow-lg dark:hover:bg-white/10 transition-all group shadow-sm">
+                    <div class="h-16 w-16 bg-blue-50 dark:bg-blue-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-blue-600 dark:text-blue-400 ring-1 ring-blue-100 dark:ring-blue-500/20 group-hover:scale-110 transition-transform duration-300">
                         <i data-lucide="zap" class="h-8 w-8"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Rapid Validation</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Test your assumptions with market experts before writing a line of code.</p>
+                    <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Rapid Validation</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Test your assumptions with market experts before writing a line of code.</p>
                 </div>
-                <div class="p-8 rounded-3xl bg-white/5 border border-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors group">
-                    <div class="h-16 w-16 bg-purple-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-purple-400 ring-1 ring-purple-500/20 group-hover:scale-110 transition-transform duration-300">
+                <div class="p-8 rounded-3xl bg-white border border-slate-200 dark:bg-white/5 dark:border-white/5 backdrop-blur-sm hover:shadow-lg dark:hover:bg-white/10 transition-all group shadow-sm">
+                    <div class="h-16 w-16 bg-purple-50 dark:bg-purple-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-purple-600 dark:text-purple-400 ring-1 ring-purple-100 dark:ring-purple-500/20 group-hover:scale-110 transition-transform duration-300">
                         <i data-lucide="shield" class="h-8 w-8"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Legal & Structuring</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Guidance on SEZ setup, IP protection, and local business licensing.</p>
+                    <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Legal & Structuring</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Guidance on SEZ setup, IP protection, and local business licensing.</p>
                 </div>
-                <div class="p-8 rounded-3xl bg-white/5 border border-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors group">
-                    <div class="h-16 w-16 bg-teal-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-teal-400 ring-1 ring-teal-500/20 group-hover:scale-110 transition-transform duration-300">
+                <div class="p-8 rounded-3xl bg-white border border-slate-200 dark:bg-white/5 dark:border-white/5 backdrop-blur-sm hover:shadow-lg dark:hover:bg-white/10 transition-all group shadow-sm">
+                    <div class="h-16 w-16 bg-teal-50 dark:bg-teal-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-teal-600 dark:text-teal-400 ring-1 ring-teal-100 dark:ring-teal-500/20 group-hover:scale-110 transition-transform duration-300">
                         <i data-lucide="trending-up" class="h-8 w-8"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Growth Hacking</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Strategies to scale your user base both locally and internationally.</p>
+                    <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Growth Hacking</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Strategies to scale your user base both locally and internationally.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-black/20 border-t border-white/5 pt-16 pb-10">
+    <footer class="bg-slate-100 dark:bg-black/20 border-t border-slate-200 dark:border-white/5 pt-16 pb-10 transition-colors duration-500">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
                 <div class="col-span-2 md:col-span-1">
                     <div class="flex items-center gap-3 mb-6">
-                        <i data-lucide="waves" class="text-cayman-cyan h-8 w-8"></i>
-                        <span class="font-display font-bold text-xl text-white">Seven Mile</span>
+                        <i data-lucide="waves" class="text-cayman-blue dark:text-cayman-cyan h-8 w-8"></i>
+                        <span class="font-display font-bold text-xl text-slate-900 dark:text-white">Seven Mile</span>
                     </div>
-                    <p class="text-sm text-slate-500 mb-6 leading-relaxed">Empowering Cayman's digital future, one idea at a time.</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-500 mb-6 leading-relaxed">Empowering Cayman's digital future, one idea at a time.</p>
                 </div>
                 <div>
-                    <h4 class="font-bold text-white mb-6">Platform</h4>
-                    <ul class="space-y-4 text-sm text-slate-500">
-                        <li><a href="#" class="hover:text-cayman-cyan transition-colors">Browse Ideas</a></li>
-                        <li><a href="#" class="hover:text-cayman-cyan transition-colors">Mentors</a></li>
-                        <li><a href="#" class="hover:text-cayman-cyan transition-colors">Investors</a></li>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-6">Platform</h4>
+                    <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-500">
+                        <li><a href="#" class="hover:text-cayman-blue dark:hover:text-cayman-cyan transition-colors">Browse Ideas</a></li>
+                        <li><a href="#" class="hover:text-cayman-blue dark:hover:text-cayman-cyan transition-colors">Mentors</a></li>
+                        <li><a href="#" class="hover:text-cayman-blue dark:hover:text-cayman-cyan transition-colors">Investors</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-bold text-white mb-6">Community</h4>
-                    <ul class="space-y-4 text-sm text-slate-500">
-                        <li><a href="#" class="hover:text-cayman-cyan transition-colors">Events</a></li>
-                        <li><a href="#" class="hover:text-cayman-cyan transition-colors">Slack Channel</a></li>
-                        <li><a href="#" class="hover:text-cayman-cyan transition-colors">Guidelines</a></li>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-6">Community</h4>
+                    <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-500">
+                        <li><a href="#" class="hover:text-cayman-blue dark:hover:text-cayman-cyan transition-colors">Events</a></li>
+                        <li><a href="#" class="hover:text-cayman-blue dark:hover:text-cayman-cyan transition-colors">Slack Channel</a></li>
+                        <li><a href="#" class="hover:text-cayman-blue dark:hover:text-cayman-cyan transition-colors">Guidelines</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-bold text-white mb-6">Legal</h4>
-                    <ul class="space-y-4 text-sm text-slate-500">
-                        <li><a href="#" class="hover:text-cayman-cyan transition-colors">Privacy</a></li>
-                        <li><a href="#" class="hover:text-cayman-cyan transition-colors">Terms</a></li>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-6">Legal</h4>
+                    <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-500">
+                        <li><a href="#" class="hover:text-cayman-blue dark:hover:text-cayman-cyan transition-colors">Privacy</a></li>
+                        <li><a href="#" class="hover:text-cayman-blue dark:hover:text-cayman-cyan transition-colors">Terms</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
-                <p class="text-slate-600 text-sm">© 2026 Seven Mile Startups. All rights reserved.</p>
-                <div class="flex items-center gap-3 px-4 py-2 bg-white/5 border border-white/10 rounded-full">
+            <div class="border-t border-slate-200 dark:border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-slate-500 text-sm">© 2026 Seven Mile Startups. All rights reserved.</p>
+                <div class="flex items-center gap-3 px-4 py-2 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full">
                     <span class="flex h-2 w-2 relative">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cayman-cyan opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-cayman-cyan"></span>
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cayman-blue dark:bg-cayman-cyan opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-cayman-blue dark:bg-cayman-cyan"></span>
                     </span>
-                    <span class="text-xs font-bold text-slate-300 uppercase tracking-wide">Made in Cayman 🇰🇾</span>
+                    <span class="text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wide">Made in Cayman 🇰🇾</span>
                 </div>
             </div>
         </div>
     </footer>
 
     <!-- Modal Template -->
-    <div id="modal-overlay" class="fixed inset-0 bg-cayman-deep/80 backdrop-blur-md z-[100] hidden items-center justify-center opacity-0 transition-opacity duration-300">
-        <div class="glass p-10 max-w-md w-full mx-4 transform scale-95 transition-all duration-300 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden" id="modal-content">
+    <div id="modal-overlay" class="fixed inset-0 bg-slate-900/50 dark:bg-cayman-deep/80 backdrop-blur-md z-[100] hidden items-center justify-center opacity-0 transition-opacity duration-300">
+        <div class="glass p-10 max-w-md w-full mx-4 transform scale-95 transition-all duration-300 rounded-3xl border border-white/20 dark:border-white/10 shadow-2xl relative overflow-hidden" id="modal-content">
             <!-- Modal glow -->
-            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-cayman-cyan to-cayman-blue"></div>
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-cayman-blue to-teal-500 dark:from-cayman-cyan dark:to-cayman-blue"></div>
             
             <div class="text-center relative z-10">
-                <div class="h-20 w-20 bg-cayman-cyan/10 text-cayman-cyan rounded-full flex items-center justify-center mx-auto mb-6 ring-1 ring-cayman-cyan/30">
+                <div class="h-20 w-20 bg-blue-50 dark:bg-cayman-cyan/10 text-cayman-blue dark:text-cayman-cyan rounded-full flex items-center justify-center mx-auto mb-6 ring-1 ring-blue-100 dark:ring-cayman-cyan/30">
                     <i data-lucide="check" class="h-10 w-10" id="modal-icon"></i>
                 </div>
-                <h3 class="text-3xl font-bold text-white mb-3" id="modal-title">Interest Registered!</h3>
-                <p class="text-slate-400 mb-8 leading-relaxed" id="modal-message">Thanks for showing interest. We've notified the founder.</p>
+                <h3 class="text-3xl font-bold text-slate-900 dark:text-white mb-3" id="modal-title">Interest Registered!</h3>
+                <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed" id="modal-message">Thanks for showing interest. We've notified the founder.</p>
                 <button class="btn-primary w-full shadow-lg shadow-cayman-blue/20" id="modal-close">Got it</button>
             </div>
         </div>

@@ -7,6 +7,22 @@ createIcons({ icons });
 // Initialize Waves
 new WaveAnimation('hero-canvas');
 
+// Theme Toggle Logic
+const themeToggles = document.querySelectorAll('#theme-toggle, #theme-toggle-mobile');
+const html = document.documentElement;
+
+themeToggles.forEach(toggle => {
+    toggle.addEventListener('click', () => {
+        if (html.classList.contains('dark')) {
+            html.classList.remove('dark');
+            localStorage.theme = 'light';
+        } else {
+            html.classList.add('dark');
+            localStorage.theme = 'dark';
+        }
+    });
+});
+
 // 3D Tilt Effect for Cards
 const cards = document.querySelectorAll('.glass-card');
 cards.forEach(card => {

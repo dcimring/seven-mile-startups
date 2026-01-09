@@ -17,15 +17,45 @@ export class WaveAnimation {
             this.cursor.x = e.clientX;
             this.cursor.y = e.clientY;
         });
+
+        // Listen for theme changes to update wave colors
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class') {
+                    this.init();
+                }
+            });
+        });
+        
+        observer.observe(document.documentElement, {
+            attributes: true
+        });
     }
 
     init() {
         this.resize();
+        const isDark = document.documentElement.classList.contains('dark');
+        
+        // Define colors for both themes
+        const darkColors = [
+            'rgba(0, 119, 190, 0.2)',   // Cayman Blue
+            'rgba(100, 255, 218, 0.15)', // Cyan
+            'rgba(255, 127, 80, 0.05)'   // Coral
+        ];
+
+        const lightColors = [
+            'rgba(0, 119, 190, 0.1)',   // Cayman Blue (More subtle)
+            'rgba(0, 150, 200, 0.08)',  // Lighter Blue
+            'rgba(255, 127, 80, 0.03)'   // Coral (Very subtle)
+        ];
+
+        const colors = isDark ? darkColors : lightColors;
+
         // Create multiple waves with different properties - Speeds significantly reduced for calm effect
         this.waves = [
-            { y: this.height * 0.5, length: 0.01, amplitude: 50, speed: 0.001, color: 'rgba(0, 119, 190, 0.2)' }, // Cayman Blue
-            { y: this.height * 0.5, length: 0.007, amplitude: 70, speed: 0.0007, color: 'rgba(100, 255, 218, 0.15)' }, // Cyan
-            { y: this.height * 0.55, length: 0.02, amplitude: 30, speed: 0.0015, color: 'rgba(255, 127, 80, 0.05)' }  // Coral (Subtle)
+            { y: this.height * 0.5, length: 0.01, amplitude: 50, speed: 0.001, color: colors[0] }, 
+            { y: this.height * 0.5, length: 0.007, amplitude: 70, speed: 0.0007, color: colors[1] }, 
+            { y: this.height * 0.55, length: 0.02, amplitude: 30, speed: 0.0015, color: colors[2] }  
         ];
     }
 
